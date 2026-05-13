@@ -1,9 +1,11 @@
 export function BrandMark() {
   return (
     <div className="flex items-center gap-3">
-      <div className="flex h-9 w-9 items-center justify-center rounded-md bg-lime text-sm font-extrabold text-void">
-        N
-      </div>
+      <img
+        src="./nort-logo.png"
+        alt="NORT"
+        className="h-11 w-11 rounded-md object-contain"
+      />
       <div>
         <p className="text-xs font-extrabold uppercase tracking-[0.12em] text-lime">
           NORT Fitness
