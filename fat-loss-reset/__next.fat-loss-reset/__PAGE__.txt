@@ -1,0 +1,6 @@
+1:"$Sreact.fragment"
+2:I[6517,["/fat-loss-reset/_next/static/chunks/0dbhjjzl8qfwv.js","/fat-loss-reset/_next/static/chunks/0j5bsa77q9lp~.js","/fat-loss-reset/_next/static/chunks/0sg5wdtfexkwv.js"],"NortResetApp"]
+3:I[97367,["/fat-loss-reset/_next/static/chunks/0dbhjjzl8qfwv.js"],"OutletBoundary"]
+4:"$Sreact.suspense"
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/fat-loss-reset/_next/static/chunks/0j5bsa77q9lp~.js","async":true}],["$","script","script-1",{"src":"/fat-loss-reset/_next/static/chunks/0sg5wdtfexkwv.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"jsQSE88P6-nTTEfvEPIsC"}
+5:null
