@@ -1,7 +1,12 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
     "afterFiles": [],
-    "beforeFiles": [],
+    "beforeFiles": [
+      {
+        "source": "/fat-loss-reset//_next/:path+",
+        "destination": "/fat-loss-reset/_next/:path+"
+      }
+    ],
     "fallback": []
   },
   "sortedPages": [
