@@ -8,6 +8,7 @@ import { ProgressTracker } from "./ProgressTracker";
 import { ResultHeroCard } from "./ResultHeroCard";
 import { WeeklySchedule } from "./WeeklySchedule";
 import { WorkoutDetail } from "./WorkoutDetail";
+import { getPersonalizationReasons } from "../lib/personalization";
 
 type ResultsDashboardProps = {
   lead: LeadData;
@@ -32,6 +33,7 @@ export function ResultsDashboard({
 }: ResultsDashboardProps) {
   const day = result.schedule.find((item) => item.day === selectedDay) ?? result.schedule[0];
   const dayOne = result.schedule[0];
+  const reasons = getPersonalizationReasons(answers);
 
   return (
     <main className="px-5 py-6">
@@ -48,6 +50,19 @@ export function ResultsDashboard({
             <InfoCard title="Step target" body={result.stepTarget} />
             <InfoCard title="If life gets busy" body="Do the 5-minute fallback workout instead of skipping." />
           </section>
+
+          {reasons.length > 0 ? (
+            <section className="rounded-xl border border-lime/25 bg-lime/10 p-5 sm:p-6">
+              <p className="eyebrow">Why this plan fits</p>
+              <div className="mt-4 grid gap-3 md:grid-cols-3">
+                {reasons.map((reason) => (
+                  <p key={reason} className="rounded-lg border border-lime/20 bg-void p-4 text-sm font-semibold leading-6 text-zinc-200">
+                    {reason}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
             <WorkoutDetail day={day} completed={completedDays.includes(day.day)} onComplete={() => onToggleDay(day.day)} />

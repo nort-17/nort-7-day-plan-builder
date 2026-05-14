@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { trackEvent } from "../lib/analytics";
 
 export function CoachingCTA() {
   return (
@@ -10,7 +11,11 @@ export function CoachingCTA() {
         This 7-day plan helps you start. But if you want to lose weight properly, you need the full system: nutrition, workouts, tracking, recovery, and accountability.
       </p>
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-        <a className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-void px-5 py-3 font-extrabold text-white transition hover:bg-black" href="/apply">
+        <a
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-void px-5 py-3 font-extrabold text-white transition hover:bg-black"
+          href="/apply"
+          onClick={() => trackEvent("coaching_cta_clicked")}
+        >
           Apply For Coaching
           <ArrowRight size={18} />
         </a>

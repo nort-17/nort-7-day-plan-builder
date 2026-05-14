@@ -1,4 +1,4 @@
-import { ArrowRight, CheckCircle2, Clock, Dumbbell, Flame, ListChecks } from "lucide-react";
+import { ArrowRight, CheckCircle2, Clock, Dumbbell, Flame, ListChecks, ShieldCheck } from "lucide-react";
 import { BrandMark } from "./BrandMark";
 
 type LandingPageProps = {
@@ -69,6 +69,11 @@ export function LandingPage({ onStart }: LandingPageProps) {
                 No gym. No guesswork. No extreme workouts.
               </p>
             </div>
+            <div className="grid max-w-2xl gap-3 sm:grid-cols-3">
+              <ProofStat value="33 lbs" label="Allan lost in 6 months" />
+              <ProofStat value="30 lbs" label="Robert lost in 90 days" />
+              <ProofStat value="20 lbs" label="3-month coaching guarantee" />
+            </div>
           </div>
 
           <div className="rounded-xl border border-border bg-surface p-4 shadow-lime">
@@ -109,6 +114,28 @@ export function LandingPage({ onStart }: LandingPageProps) {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-5 py-16">
+        <div className="grid gap-6 rounded-xl border border-lime/25 bg-surface p-6 sm:p-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <div className="mb-4 inline-flex rounded-lg bg-lime p-3 text-void">
+              <ShieldCheck />
+            </div>
+            <p className="eyebrow">Why NORT</p>
+            <h2 className="mt-3 text-3xl font-extrabold tracking-[-0.02em] text-white">
+              Built for busy professionals who have tried before.
+            </h2>
+          </div>
+          <div className="space-y-4 text-base leading-8 text-zinc-300">
+            <p>
+              The plan uses the same practical NORT principles Allan teaches: protein, steps, resistance training, recovery, and tracking. No two-a-day workouts. No crash diet. No pretending your schedule is empty.
+            </p>
+            <p>
+              Allan lost 33 lbs in 6 months. Client Robert lost 30 lbs, or 13 kg, in 90 days. This free plan is the starting version: simple enough to do today, structured enough to stop guessing.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -156,5 +183,14 @@ export function LandingPage({ onStart }: LandingPageProps) {
         </div>
       </section>
     </main>
+  );
+}
+
+function ProofStat({ value, label }: { value: string; label: string }) {
+  return (
+    <div className="rounded-xl border border-lime/20 bg-lime/10 p-3">
+      <p className="text-2xl font-extrabold text-lime">{value}</p>
+      <p className="mt-1 text-xs font-semibold uppercase tracking-[0.08em] text-zinc-300">{label}</p>
+    </div>
   );
 }

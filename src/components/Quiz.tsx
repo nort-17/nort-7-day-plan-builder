@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { ProgressBar } from "./ProgressBar";
 import { QuizQuestion, type QuizOption } from "./QuizQuestion";
+import { trackEvent } from "../lib/analytics";
 import type {
   Confidence,
   Equipment,
@@ -134,6 +135,10 @@ export function Quiz({ answers, onChange, onComplete }: QuizProps) {
 
   function continueQuiz() {
     if (!canContinue) return;
+    trackEvent("quiz_step_completed", {
+      step: step + 1,
+      question: current.key,
+    });
     if (step === questions.length - 1) {
       onComplete();
       return;

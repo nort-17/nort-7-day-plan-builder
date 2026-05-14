@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { ArrowRight, Lock } from "lucide-react";
 import type { LeadData } from "../types";
 import { BrandMark } from "./BrandMark";
+import { trackEvent } from "../lib/analytics";
 
 type LeadCaptureProps = {
   onSubmit: (lead: LeadData) => Promise<void>;
@@ -18,11 +19,13 @@ export function LeadCapture({ onSubmit }: LeadCaptureProps) {
     setError("");
 
     if (!firstName.trim()) {
+      trackEvent("lead_validation_failed", { field: "firstName" });
       setError("Enter your first name.");
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      trackEvent("lead_validation_failed", { field: "email" });
       setError("Enter a valid email address.");
       return;
     }

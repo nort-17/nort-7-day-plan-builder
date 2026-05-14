@@ -4,6 +4,7 @@ import { LeadCapture } from "./components/LeadCapture";
 import { isCompleteAnswers, Quiz } from "./components/Quiz";
 import { ResultsDashboard } from "./components/ResultsDashboard";
 import { submitLead } from "./lib/lead";
+import { trackEvent } from "./lib/analytics";
 import { generatePlan } from "./lib/planLogic";
 import { storage } from "./lib/storage";
 import type { LeadData, PlanResult, QuizAnswers } from "./types";
@@ -31,6 +32,10 @@ export function App() {
     storage.saveCompleted(completedDays);
   }, [completedDays]);
 
+  useEffect(() => {
+    trackEvent("page_view", { view });
+  }, [view]);
+
   const completeAnswers = useMemo(
     () => (isCompleteAnswers(answers) ? answers : null),
     [answers],
@@ -39,6 +44,11 @@ export function App() {
   function completeQuiz() {
     if (!completeAnswers) return;
     const generated = generatePlan(completeAnswers);
+    trackEvent("quiz_completed", {
+      planType: generated.planType,
+      intensity: generated.intensity,
+      sessionTime: generated.recommendedSessionTime,
+    });
     setResult(generated);
     storage.saveResult(generated);
     setView("lead");
@@ -47,6 +57,11 @@ export function App() {
   async function handleLeadSubmit(data: LeadData) {
     if (!completeAnswers || !result) return;
     await submitLead(data, completeAnswers, result);
+    trackEvent("lead_submitted", {
+      planType: result.planType,
+      goal: completeAnswers.mainGoal,
+      fitnessLevel: completeAnswers.fitnessLevel,
+    });
     setLead(data);
     storage.saveLead(data);
     setView("results");
@@ -103,9 +118,11 @@ export function App() {
     <LandingPage
       onStart={() => {
         if (completeAnswers && result && lead) {
+          trackEvent("resume_results_clicked");
           setView("results");
           return;
         }
+        trackEvent("quiz_started");
         setView("quiz");
       }}
     />
