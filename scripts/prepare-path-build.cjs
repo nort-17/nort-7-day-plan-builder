@@ -13,3 +13,11 @@ for (const entry of ["index.html", "assets", "nort-logo.png"]) {
 }
 
 fs.copyFileSync(path.join(dist, "index.html"), path.join(dist, "404.html"));
+
+const eatingHacksSource = path.join(__dirname, "..", "eating-hacks");
+const eatingHacksTarget = path.join(dist, "eating-hacks");
+
+if (fs.existsSync(eatingHacksSource)) {
+  fs.rmSync(eatingHacksTarget, { recursive: true, force: true });
+  fs.cpSync(eatingHacksSource, eatingHacksTarget, { recursive: true });
+}
