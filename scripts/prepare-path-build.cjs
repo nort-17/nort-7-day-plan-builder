@@ -21,3 +21,11 @@ if (fs.existsSync(eatingHacksSource)) {
   fs.rmSync(eatingHacksTarget, { recursive: true, force: true });
   fs.cpSync(eatingHacksSource, eatingHacksTarget, { recursive: true });
 }
+
+const fatLossResetSource = path.join(__dirname, "..", "fat-loss-reset");
+const fatLossResetTarget = path.join(dist, "fat-loss-reset");
+
+if (fs.existsSync(fatLossResetSource)) {
+  fs.rmSync(fatLossResetTarget, { recursive: true, force: true });
+  fs.cpSync(fatLossResetSource, fatLossResetTarget, { recursive: true });
+}
