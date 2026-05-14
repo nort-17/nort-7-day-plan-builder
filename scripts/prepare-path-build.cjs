@@ -29,3 +29,11 @@ if (fs.existsSync(fatLossResetSource)) {
   fs.rmSync(fatLossResetTarget, { recursive: true, force: true });
   fs.cpSync(fatLossResetSource, fatLossResetTarget, { recursive: true });
 }
+
+const calorieCalculatorSource = path.join(__dirname, "..", "calorie-calculator");
+const calorieCalculatorTarget = path.join(dist, "calorie-calculator");
+
+if (fs.existsSync(calorieCalculatorSource)) {
+  fs.rmSync(calorieCalculatorTarget, { recursive: true, force: true });
+  fs.cpSync(calorieCalculatorSource, calorieCalculatorTarget, { recursive: true });
+}
