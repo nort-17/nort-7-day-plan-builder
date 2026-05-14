@@ -9,7 +9,6 @@ import type {
   Limitation,
   MainGoal,
   Obstacle,
-  PreferredTime,
   QuizAnswers,
   WorkoutStyle,
 } from "../types";
@@ -67,16 +66,6 @@ const questions: Question[] = [
     ],
   },
   {
-    key: "trainingDays",
-    question: "How many days can you realistically train this week?",
-    options: [
-      { label: "2 days", value: 2 },
-      { label: "3 days", value: 3 },
-      { label: "4 days", value: 4 },
-      { label: "5+ days", value: 5 },
-    ],
-  },
-  {
     key: "equipment",
     question: "What equipment do you have at home?",
     options: [
@@ -118,16 +107,6 @@ const questions: Question[] = [
       { label: "I do not know what to do", value: "confusion" },
       { label: "I get sore and stop", value: "soreness" },
       { label: "I start strong then fall off", value: "all_or_nothing" },
-    ],
-  },
-  {
-    key: "preferredTime",
-    question: "When are you most likely to train?",
-    options: [
-      { label: "Morning", value: "morning" },
-      { label: "Lunch break", value: "lunch" },
-      { label: "Evening", value: "evening" },
-      { label: "Whenever I can fit it in", value: "flexible" },
     ],
   },
   {
@@ -212,13 +191,11 @@ export function isCompleteAnswers(answers: Partial<QuizAnswers>): answers is Qui
     answers.fitnessLevel &&
       answers.mainGoal &&
       answers.sessionTime &&
-      answers.trainingDays &&
       answers.equipment &&
       answers.workoutStyle &&
       answers.limitations &&
       answers.limitations.length > 0 &&
       answers.obstacle &&
-      answers.preferredTime &&
       answers.confidence,
   );
 }
@@ -258,12 +235,6 @@ export function labelsForAnswers(answers: QuizAnswers) {
       soreness: "Soreness",
       all_or_nothing: "All-or-nothing",
     } satisfies Record<Obstacle, string>,
-    preferredTime: {
-      morning: "Morning",
-      lunch: "Lunch break",
-      evening: "Evening",
-      flexible: "Flexible",
-    } satisfies Record<PreferredTime, string>,
     confidence: {
       low: "Not confident",
       medium: "Somewhat confident",
@@ -277,7 +248,6 @@ export function labelsForAnswers(answers: QuizAnswers) {
     equipment: labels.equipment[answers.equipment],
     workoutStyle: labels.workoutStyle[answers.workoutStyle],
     obstacle: labels.obstacle[answers.obstacle],
-    preferredTime: labels.preferredTime[answers.preferredTime],
     confidence: labels.confidence[answers.confidence],
   };
 }

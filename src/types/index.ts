@@ -4,19 +4,16 @@ export type Equipment = "none" | "bands" | "dumbbells" | "kettlebell" | "full";
 export type WorkoutStyle = "low_impact" | "strength" | "circuits" | "mixed";
 export type Limitation = "no_jumping" | "knee" | "back" | "shoulder" | "none";
 export type Obstacle = "busy" | "motivation" | "confusion" | "soreness" | "all_or_nothing";
-export type PreferredTime = "morning" | "lunch" | "evening" | "flexible";
 export type Confidence = "low" | "medium" | "high";
 
 export type QuizAnswers = {
   fitnessLevel: FitnessLevel;
   mainGoal: MainGoal;
   sessionTime: 10 | 20 | 30 | 45;
-  trainingDays: 2 | 3 | 4 | 5;
   equipment: Equipment;
   workoutStyle: WorkoutStyle;
   limitations: Limitation[];
   obstacle: Obstacle;
-  preferredTime: PreferredTime;
   confidence: Confidence;
 };
 

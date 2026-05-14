@@ -1,5 +1,5 @@
 import type { PlanResult, QuizAnswers } from "../types";
-import { fitnessCopy, obstacleCopy, preferredTimeCopy } from "./copyLogic";
+import { fitnessCopy, obstacleCopy } from "./copyLogic";
 import { buildSchedule, getBadDayWorkout, getExerciseSwaps } from "./workoutData";
 
 function hasNoMajorLimitations(answers: QuizAnswers) {
@@ -41,7 +41,7 @@ function getPlanBase(answers: QuizAnswers): Pick<PlanResult, "planType" | "planS
     };
   }
 
-  if (answers.sessionTime === 10 || answers.obstacle === "busy" || answers.preferredTime === "flexible") {
+  if (answers.sessionTime === 10 || answers.obstacle === "busy") {
     return {
       planType: "Busy Schedule Plan",
       planSubtitle: "Short workouts, simple structure, real-life backup options.",
@@ -185,12 +185,12 @@ function goalLabel(goal: QuizAnswers["mainGoal"]) {
 export function generatePlan(answers: QuizAnswers): PlanResult {
   const base = getPlanBase(answers);
   const recommendedSessionTime = getRecommendedSessionTime(answers);
-  const weeklyGoal = `Complete ${answers.trainingDays} workouts, hit your step target on most days, and use the 5-minute fallback workout instead of skipping.`;
+  const workouts = base.intensity === "high" ? 5 : base.intensity === "medium" ? 4 : 3;
+  const weeklyGoal = `Complete ${workouts} workouts, hit your step target on most days, and use the 5-minute fallback workout instead of skipping.`;
   const dynamicDescription = [
     base.planDescription,
     fitnessCopy[answers.fitnessLevel],
     obstacleCopy[answers.obstacle],
-    preferredTimeCopy[answers.preferredTime],
   ].join(" ");
 
   const resultShell = {

@@ -31,6 +31,7 @@ export function ResultsDashboard({
   onReset,
 }: ResultsDashboardProps) {
   const day = result.schedule.find((item) => item.day === selectedDay) ?? result.schedule[0];
+  const dayOne = result.schedule[0];
 
   return (
     <main className="px-5 py-6">
@@ -43,40 +44,48 @@ export function ResultsDashboard({
           <ResultHeroCard lead={lead} answers={answers} result={result} onReset={onReset} />
 
           <section className="grid gap-4 md:grid-cols-3">
-            <InfoCard title="Your weekly goal" body={result.weeklyGoal} />
+            <InfoCard title="Step 1" body={`Do ${dayOne.title}. It takes ${dayOne.duration} minutes.`} />
             <InfoCard title="Step target" body={result.stepTarget} />
-            <InfoCard title="Consistency rule" body={result.consistencyRule} />
+            <InfoCard title="If life gets busy" body="Do the 5-minute fallback workout instead of skipping." />
           </section>
 
-          <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr]">
+          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
+            <WorkoutDetail day={day} completed={completedDays.includes(day.day)} onComplete={() => onToggleDay(day.day)} />
             <div className="space-y-6">
               <ProgressTracker completedDays={completedDays} onToggle={onToggleDay} />
-              <WeeklySchedule
-                schedule={result.schedule}
-                selectedDay={selectedDay}
-                completedDays={completedDays}
-                onSelect={onSelectDay}
-              />
-            </div>
-            <div className="space-y-6">
-              <WorkoutDetail day={day} completed={completedDays.includes(day.day)} onComplete={() => onToggleDay(day.day)} />
               <BadDayWorkout workout={result.badDayWorkout} />
             </div>
           </div>
 
-          <section className="grid gap-6 lg:grid-cols-2">
-            <FatLossChecklist nutritionFocus={result.nutritionFocus} />
-            <div className="card">
-              <p className="eyebrow">Recovery Advice</p>
-              <h2 className="mt-2 text-2xl font-extrabold text-white">Protect the habit</h2>
-              <p className="mt-3 leading-7 text-zinc-300">{result.recoveryAdvice}</p>
-              <p className="mt-5 rounded-lg border-l-4 border-lime bg-void p-4 text-sm leading-6 text-muted">
-                {result.nextStepRecommendation}
-              </p>
-            </div>
-          </section>
+          <WeeklySchedule
+            schedule={result.schedule}
+            selectedDay={selectedDay}
+            completedDays={completedDays}
+            onSelect={onSelectDay}
+          />
 
-          <ExerciseSwaps swaps={result.exerciseSwaps} />
+          <details className="rounded-xl border border-border bg-surface p-5 sm:p-6">
+            <summary className="cursor-pointer list-none">
+              <p className="eyebrow">Optional Details</p>
+              <h2 className="mt-2 text-2xl font-extrabold text-white">Nutrition, recovery, and swaps</h2>
+              <p className="mt-2 text-sm text-muted">Open this when you want the extra detail. You do not need it to start Day 1.</p>
+            </summary>
+            <div className="mt-6 grid gap-6 lg:grid-cols-2">
+              <FatLossChecklist nutritionFocus={result.nutritionFocus} />
+              <div className="card bg-void">
+                <p className="eyebrow">Recovery Advice</p>
+                <h2 className="mt-2 text-2xl font-extrabold text-white">Protect the habit</h2>
+                <p className="mt-3 leading-7 text-zinc-300">{result.recoveryAdvice}</p>
+                <p className="mt-5 rounded-lg border-l-4 border-lime bg-surface p-4 text-sm leading-6 text-muted">
+                  {result.consistencyRule}
+                </p>
+              </div>
+              <div className="lg:col-span-2">
+                <ExerciseSwaps swaps={result.exerciseSwaps} />
+              </div>
+            </div>
+          </details>
+
           <CoachingCTA />
           <Footer />
         </div>
